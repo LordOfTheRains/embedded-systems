@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 
-void printBinary(unsigned int n);
+void printBinary(uint_16 n);
 void printChar(unsigned int n);
 void printHex(unsigned int n);
 void printHexDigits(unsigned int n);
@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void printBinary(unsigned int n){
+void printBinary(uint_16 n){
     if (n > 0){
         printBinary(n >> 1);
         printf("%d", n & 1);
