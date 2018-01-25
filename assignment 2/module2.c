@@ -12,7 +12,7 @@ void clearNth(unsigned int n, unsigned int bitNum);
 int main(int argc, char *argv[])
 {
     uint16_t LSB_MASK = 0x0f;
-    int input_n, input_nbit;
+    uint16_t input_n, input_nbit;
 
     if (argc != 3) {
         fprintf(stderr,"usage: module2 <input1 #>  <input2 #> \n");
