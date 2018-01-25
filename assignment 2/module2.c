@@ -84,12 +84,8 @@ void printHex(unsigned int n){
 }
 
 void printHexDigits(unsigned int n){
-    if (n > 0) {
-      printf("-%2x", n);
-      printHexDigits(n>>3);
-    }else{
-      printf("-0");
-    }
+    printf("\n%x-", (n&0b11110000)>>4);
+    printf("%x\n", n&0x0f);
 }
 
 void clearNth(unsigned int n, unsigned int bitNum){
