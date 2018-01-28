@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 
-void printBinary(unsigned int n);
+void printBinary(uint_16 n);
 void printChar(unsigned int n);
 void printHex(unsigned int n);
 void printHexDigits(unsigned int n);
@@ -12,7 +12,7 @@ void clearNth(unsigned int n, unsigned int bitNum);
 int main(int argc, char *argv[])
 {
     uint16_t LSB_MASK = 0x0f;
-    int input_n, input_nbit;
+    uint16_t input_n, input_nbit;
 
     if (argc != 3) {
         fprintf(stderr,"usage: module2 <input1 #>  <input2 #> \n");
@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void printBinary(unsigned int n){
+void printBinary(uint_16 n){
     if (n > 0){
         printBinary(n >> 1);
         printf("%d", n & 1);
@@ -84,12 +84,8 @@ void printHex(unsigned int n){
 }
 
 void printHexDigits(unsigned int n){
-    if (n > 0) {
-      printf("-%2x", n);
-      printHexDigits(n>>3);
-    }else{
-      printf("-0");
-    }
+    printf("\n%x-", (n&0b11110000)>>4);
+    printf("%x\n", n&0x0f);
 }
 
 void clearNth(unsigned int n, unsigned int bitNum){
