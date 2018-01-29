@@ -3,51 +3,49 @@
 #include <stdint.h>
 
 
-void printBun(unsigned short	 bun_type);
 void printBinary(unsigned short	 n);
-void printBurger(unsigned short burgers);
-void printBurgerSize(unsigned short size);
-void printOnion(unsigned short onion);
-void printKetchup(unsigned short ketchup);
-void printMayo(unsigned short mayo);
-void printDrink(unsigned short drink);
+
+
+void selectBun(unsigned short *menu);
+void selectBurger(unsigned short *menu);
+void selectBurgerSize(unsigned short *menu);
+void selectOnion(unsigned short *menu);
+void selectKetchup(unsigned short *menu);
+void selectMayo(unsigned short *menu);
+void selectDrink(unsigned short *menu);
 
 int main(int argc, char *argv[])
 {
-    unsigned short menu;
-    unsigned short BUN = 0b11;
-    unsigned short BURGER = 0b1100;
-    unsigned short SIZE = 0b10000;
-    unsigned short ONION = 0b100000;
-    unsigned short KETCHUP = 0b1000000;
-    unsigned short MAYO = 0b10000000;
-    unsigned short DRINKS = 0b11100000000;
-    printf ("Enter your menu: ");
-    scanf ("%hu", &menu);
-    printf ("You entered: %hu\n", menu);
-    printBun(menu & BUN);
-    printBurger((menu & BURGER) >> 2);
-    printBurgerSize((menu & SIZE) >> 4);
-    printOnion((menu & ONION) >> 5);
-    printKetchup((menu & KETCHUP) >> 6);
-    printMayo((menu & MAYO) >> 7);
-    printDrink((menu & DRINKS) >> 8);
+    unsigned short menu = 0;
+    selectBun(&menu);
+    selectBurger(&menu);
+    selectBurgerSize(&menu);
+    selectOnion(&menu);
+    selectKetchup(&menu);
+    selectMayo(&menu);
+    selectDrink(&menu);
+    printf ("\nYour menu is: %hu\n", menu);
+    printBinary(menu);
+    printf ("\nYour menu (hex) is: %2x\n", menu);
     return 0;
 }
 
-void printBun(unsigned short bun_type){
-  switch(bun_type) {
-    case 0:
-      printf("simple bun, ");
-      break;
+void selectBun(unsigned short *menu){
+  int selection = 0;
+  printf ("Please select a bun (1-simple bun, 2-double-deck, 3-simple bun with sesame, 4-double-deck with sesame): ");
+  scanf ("%d", &selection);
+  switch(selection) {
     case 1:
-      printf("double-deck bun, ");
+      *menu = *menu | 0b00;
       break;
     case 2:
-      printf("simple bun with sesame, ");
+      *menu = *menu | 0b01;
       break;
     case 3:
-      printf("double-deck bun with sesame, ");
+      *menu = *menu | 0b10;
+      break;
+    case 4:
+      *menu = *menu | 0b11;
       break;
     default:
       printf("something is wrong about your bun\n" );
@@ -55,80 +53,89 @@ void printBun(unsigned short bun_type){
   }
 }
 
-void printBurger(unsigned short burgers){
-  switch(burgers) {
+void selectBurger(unsigned short *menu){
+  int selection = 0;
+  printf ("Please select number of burger 1-3: ");
+  scanf ("%d", &selection);
+  switch(selection) {
     case 1:
-      printf(" single ");
+      *menu = *menu | 0b0100;
       break;
     case 2:
-      printf(" double ");
+      *menu = *menu | 0b1000;
       break;
     case 3:
-      printf(" triple ");
+      *menu = *menu | 0b1100;
       break;
     default:
-      printf("something is wrong about your burger choices\n" );
+      printf("something is wrong about your burger choice\n" );
       break;
   }
 }
 
-void printBurgerSize(unsigned short size){
-  switch(size) {
-    case 0:
-      printf("1/8 lb hamburger, ");
-      break;
-    case 1:
-      printf("1/4 lb hamburger, ");
-      break;
-    default:
-      printf("something is wrong about your burger size\n" );
-      break;
+void selectBurgerSize(unsigned short *menu){
+  int selection = 0;
+  printf ("Please select size of burger 0) 1/8 lb hamburger, 1) 1/4 lb hamburger: ");
+  scanf ("%d", &selection);
+  if (selection){
+    *menu = *menu | 0b10000;
   }
 }
 
-void printOnion(unsigned short onion){
+void selectOnion(unsigned short *menu){
+  int onion = 0;
+  printf ("Onions? 1) yes, 0) no? :");
+  scanf ("%d", &onion);
   if (onion){
-    printf("onions, ");
-  }else{
-    printf("no onions, ");
+    *menu = *menu | 0b100000;
   }
 }
 
-void printKetchup(unsigned short ketchup){
+void selectKetchup(unsigned short *menu){
+  int ketchup = 0;
+  printf ("Ketchup? 1) yes, 0) no? :");
+  scanf ("%d", &ketchup);
   if (ketchup){
-    printf("ketchup, ");
-  }else{
-    printf("no ketchup, ");
+    *menu = *menu | 0b1000000;
   }
 }
 
-void printMayo(unsigned short mayo){
+void selectMayo(unsigned short *menu){
+  int mayo = 0;
+  printf ("Mayo? 1) yes, 0) no? :");
+  scanf ("%d", &mayo);
   if (mayo){
-    printf("mayo, ");
-  }else{
-    printf("no mayo, ");
+    *menu = *menu | 0b10000000;
   }
 }
 
-void printDrink(unsigned short drink){
-  switch(drink) {
-    case 0:
-      printf("Coca Cola.");
-      break;
+void selectDrink(unsigned short *menu){
+  int selection = 0;
+  printf ("\nPlease select a drink: \n");
+  printf ("1) Coca Cola. \n");
+  printf ("2) Sprite. \n");
+  printf ("3) Lemonade. \n");
+  printf ("4) sweet tea. \n");
+  printf ("5) unsweetened tea. \n");
+  scanf ("%d", &selection);
+  switch(selection) {
     case 1:
-      printf("Sprite.");
+      *menu = *menu | 0b100000000;
       break;
     case 2:
-      printf("Lemonade.");
+      *menu = *menu | 0b1000000000;
+      break;
+    case 3:
+      *menu = *menu | 0b1100000000;
       break;
     case 4:
-      printf("sweet tea.");
+      *menu = *menu | 0b10000000000;
       break;
     case 5:
-      printf("unsweetened tea.");
+      *menu = *menu | 0b10100000000;
       break;
     default:
-      printf("something is wrong about your drink\n" );
+      printf("something is wrong about your drink choice\n" );
       break;
   }
 }

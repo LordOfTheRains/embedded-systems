@@ -20,4 +20,4 @@ exercise32.o:  exercise32.c
 
 
 clean:
-	    rm -rf *.o exercise31
+	    rm -rf *.o exercise31 exercise32
